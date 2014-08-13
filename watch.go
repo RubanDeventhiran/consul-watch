@@ -322,10 +322,9 @@ func formatOutput(inp map[string][]*consulapi.ServiceEntry) map[string][]string 
 	for backend, entries := range inp {
 		servers := make([]string, len(entries))
 		for idx, entry := range entries {
-			name := fmt.Sprintf("%s_%s", entry.Node.Node, entry.Service.ID)
 			ip := net.ParseIP(entry.Node.Address)
 			addr := &net.TCPAddr{IP: ip, Port: entry.Service.Port}
-			servers[idx] = fmt.Sprintf("server %s %s", name, addr)
+			servers[idx] = fmt.Sprintf("%s", addr)
 		}
 		out[backend] = servers
 	}
